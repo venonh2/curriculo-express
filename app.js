@@ -1,9 +1,14 @@
 const express = require('express');
-const port = 3000;
 const app = express();
+const port = 3000;
+const path = require('path');
 
-app.get('/',(req, res, next) => {
-    res.send({
+// Setup view engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+app.get('/',function(req, res, next){
+    res.render('index', { // antes estava sender, ou seja só enviando dados para o servidor, agora o renderdiz que vamos renderimas dados (html)
         title: "Meu primeiro servidor express",
         version: "0.0.0"
     });
@@ -11,5 +16,7 @@ app.get('/',(req, res, next) => {
 });
 
 app.listen(port, err => {
-    console.log(`Servidor is listening on ${port}`)
-})
+    console.log(`Servidor is listening on ${port}`);
+});
+
+

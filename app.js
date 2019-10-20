@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const path = require('path');
+const CurriculoController = require('./controllers/curriculo-controller');
 
 // Setup view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -16,29 +17,15 @@ app.get('/', function(req, res, next){
 
 });
 
+app.get('/curriculo', (req, res, next) =>{
+    const curriculoData = CurriculoController.getData();
+    res.render('curriculo', curriculoData);
+});
 
 app.listen(port, err => {
     console.log(`Servidor is listening on ${port}`);
 });
 
-app.get('/curriculo', (req, res, next) => {
-    res.render('curriculo', {
-        title: 'Meu curriculo',
-        name: 'Brendow E. R',
-        profession: 'Software Engineer',
-        description: 'Aprendendo js',
-        experience: [{
-            company: 'Uepg',
-            office: 'Eng de Software',
-            descrition: '# an faculdade'
-        },
-        {
-            company: 'prefeitura',
-            office: 'hc',
-            description: 'manutenção ..'
-        }],
-        skills: ['backend','frontend','manutenção']
-    });
-});
+
 
 
